@@ -10,7 +10,7 @@ public class SpringwebappApplication {
 
 		SpringApplication.run(SpringwebappApplication.class, args);
 
-		System.out.println("Hello World");
+		System.out.println("Hello World !!!");
 	}
 
 }
