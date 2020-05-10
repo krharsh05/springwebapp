@@ -26,26 +26,49 @@ public class BootStrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        Publisher pearsonEducation = new Publisher("Pearson Education", "7th Floor, Knowledge Boulevard, A-8",
+                "Noida", "UP", 201309);
+        publisherRepository.save(pearsonEducation);
+
+        Publisher sChandEducation = new Publisher("S Chand", "7th Floor, Knowledge Boulevard, A-8",
+                "Noida", "UP", 201340);
+        publisherRepository.save(sChandEducation);
+
         Author eric = new Author("Eric", "Evans");
         Book ddd = new Book("Domain Driven Design", "10001");
         eric.getBooks().add(ddd);
         ddd.getAuthors().add(eric);
 
+        ddd.setPublisher(pearsonEducation);
+        pearsonEducation.getBooks().add(ddd);
+
         authorRepository.save(eric);
         bookRepository.save(ddd);
+        publisherRepository.save(pearsonEducation);
 
         Author rod = new Author("Rod", "Johnson");
         Book noEJB = new Book("J2EE Development without EJB", "10002");
         eric.getBooks().add(noEJB);
         noEJB.getAuthors().add(rod);
 
+        noEJB.setPublisher(pearsonEducation);
+        sChandEducation.getBooks().add(noEJB);
+
         authorRepository.save(rod);
         bookRepository.save(noEJB);
+        publisherRepository.save(sChandEducation);
 
-        Publisher pearsonEducation = new Publisher("Pearson Education", "7th Floor, Knowledge Boulevard, A-8",
-                "Noida", "UP", 201309);
+        Author hcVerma = new Author("HC", "Verma");
+        Book physics = new Book("Fundamentals of Physics", "10003");
+        hcVerma.getBooks().add(physics);
+        physics.getAuthors().add(hcVerma);
 
-        publisherRepository.save(pearsonEducation);
+        physics.setPublisher(sChandEducation);
+        sChandEducation.getBooks().add(physics);
+
+        authorRepository.save(hcVerma);
+        bookRepository.save(physics);
+        publisherRepository.save(sChandEducation);
 
         System.out.println("Started in Bootstrap");
         System.out.println("Number of Books: " + bookRepository.count());
